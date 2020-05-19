@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"context"
+	"net/http"
 	"time"
 
 	"github.com/dhyaniarun1993/foody-auth-service/repositories"
@@ -23,7 +24,7 @@ func (db *healthRepository) HealthCheck(ctx context.Context) errors.AppError {
 	defer pingCancel()
 	pingError := db.PingContext(timedCtx)
 	if pingError != nil {
-		return errors.NewAppError("Unable to connect to MySQL", errors.StatusServiceUnavailable, pingError)
+		return errors.NewAppError("Unable to connect to MySQL", http.StatusServiceUnavailable, pingError)
 	}
 	return nil
 }
