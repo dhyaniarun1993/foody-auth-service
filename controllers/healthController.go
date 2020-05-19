@@ -6,8 +6,8 @@ import (
 
 	"github.com/gorilla/mux"
 
+	"github.com/dhyaniarun1993/foody-auth-service/services"
 	"github.com/dhyaniarun1993/foody-common/logger"
-	"github.com/dhyaniarun1993/foody-customer-service/services"
 )
 
 type healthController struct {
