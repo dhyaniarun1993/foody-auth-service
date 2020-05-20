@@ -144,7 +144,7 @@ func (service *tokenService) VerifyRefreshToken(ctx context.Context,
 		return models.RefreshToken{}, getTokenErr
 	}
 
-	if !reflect.DeepEqual(refreshToken, models.RefreshToken{}) {
+	if reflect.DeepEqual(refreshToken, models.RefreshToken{}) {
 		return models.RefreshToken{}, errors.NewAppError("Invalid token", http.StatusUnauthorized, nil)
 	}
 
