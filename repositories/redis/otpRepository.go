@@ -21,10 +21,10 @@ func NewOtpRepository(redisClient *redis.Client) repositories.OtpRepository {
 	return &otpRepository{redisClient}
 }
 
-func (redis *otpRepository) Set(ctx context.Context, key string, value string) errors.AppError {
+func (db *otpRepository) Set(ctx context.Context, key string, value string) errors.AppError {
 
 	ttl := 120 * time.Second
-	redisWithContext := otredis.WrapRedisClient(ctx, redis.Client)
+	redisWithContext := otredis.WrapRedisClient(ctx, db.Client)
 
 	err := redisWithContext.Set(key, value, ttl).Err()
 	if err != nil {
@@ -33,19 +33,19 @@ func (redis *otpRepository) Set(ctx context.Context, key string, value string) e
 	return nil
 }
 
-func (redis *otpRepository) Get(ctx context.Context, key string) (string, errors.AppError) {
-	redisWithContext := otredis.WrapRedisClient(ctx, redis.Client)
+func (db *otpRepository) Get(ctx context.Context, key string) (string, errors.AppError) {
+	redisWithContext := otredis.WrapRedisClient(ctx, db.Client)
 
 	otp, err := redisWithContext.Get(key).Result()
-	if err != nil {
+	if err != nil && err != redis.Nil {
 		return "", errors.NewAppError("Something went wrong", http.StatusInternalServerError, err)
 	}
 
 	return otp, nil
 }
 
-func (redis *otpRepository) Delete(ctx context.Context, key string) errors.AppError {
-	redisWithContext := otredis.WrapRedisClient(ctx, redis.Client)
+func (db *otpRepository) Delete(ctx context.Context, key string) errors.AppError {
+	redisWithContext := otredis.WrapRedisClient(ctx, db.Client)
 
 	err := redisWithContext.Del(key).Err()
 	if err != nil {

@@ -28,6 +28,10 @@ func (service *otpService) Validate(ctx context.Context, phoneNumber string,
 		return false, getOtpErr
 	}
 
+	if otpFromRepository == "" {
+		return false, nil
+	}
+
 	if otp != otpFromRepository {
 		return false, nil
 	}
