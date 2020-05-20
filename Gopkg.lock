@@ -2,33 +2,42 @@
 
 
 [[projects]]
+  digest = "1:76dc72490af7174349349838f2fe118996381b31ea83243812a97e5a0fd5ed55"
+  name = "github.com/dgrijalva/jwt-go"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
+  version = "v3.2.0"
+
+[[projects]]
   branch = "master"
-  digest = "1:818c758e8d7a2e5c7bfc735749fff63f0dbabd358c0dc6c7f728169608b19334"
+  digest = "1:beac109f286002969f318675679aa921c20948998dda8f9b633ce085d2c566f1"
   name = "github.com/dhyaniarun1993/foody-common"
   packages = [
     "authentication",
+    "datastore/redis",
     "datastore/sql",
     "errors",
     "logger",
     "tracer",
+    "validator",
   ]
   pruneopts = "UT"
-  revision = "6c984f908a24f6b4659855c3993c6df5efcf28db"
+  revision = "c8d9aa8733e3ff5e982751ace364333d05ae7b35"
 
 [[projects]]
   branch = "master"
-  digest = "1:c7db151fc489f0234245c939892d87fd84348b35c79045709fd122ca9edd1bbb"
+  digest = "1:35116d733d4334fca10624b83488e799483c2e99ad4b782ffa4d79473906d110"
   name = "github.com/dhyaniarun1993/foody-customer-service"
   packages = [
+    "client",
+    "client/http",
     "constants",
-    "repositories",
-    "repositories/mysql",
     "schemas/dto",
     "schemas/models",
-    "services",
   ]
   pruneopts = "UT"
-  revision = "64e19ce2f96f7cd30a7688f263a5332bec926e8b"
+  revision = "73deb44f685730ccb4ccf0304ff98c8da93b40d0"
 
 [[projects]]
   digest = "1:e1cbe9ce835f515ce57500b8db6b94f399650bea2ddfac59f9b05d98db77a96d"
@@ -48,6 +57,22 @@
   pruneopts = "UT"
   revision = "f87b1403479a348651dbf5f07f5cc6e5fcf07008"
   version = "v0.17.0"
+
+[[projects]]
+  digest = "1:e17320223c7c866dfbec405efe8abc8e383ccad131fb76ca7ff70580dafb9067"
+  name = "github.com/go-redis/redis"
+  packages = [
+    ".",
+    "internal",
+    "internal/consistenthash",
+    "internal/hashtag",
+    "internal/pool",
+    "internal/proto",
+    "internal/util",
+  ]
+  pruneopts = "UT"
+  revision = "99cd690a7019656b0b67c6664453f27a6d8a658e"
+  version = "v6.15.7"
 
 [[projects]]
   digest = "1:a3af33fd30536d9c5a7b6ad542390919e57c1125097a194c7b3d9904109a0611"
@@ -82,6 +107,14 @@
   version = "v1.2.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:bce8a8c7289c6c5e23423799b905c3e8f2d532117c3778a45592bdc095cf5c83"
+  name = "github.com/opentracing-contrib/go-stdlib"
+  packages = ["nethttp"]
+  pruneopts = "UT"
+  revision = "cf7a6c988dc994e945d2715565026f3cc8718689"
+
+[[projects]]
   digest = "1:11e62d6050198055e6cd87ed57e5d8c669e84f839c16e16f192374d913d1a70d"
   name = "github.com/opentracing/opentracing-go"
   packages = [
@@ -100,6 +133,14 @@
   pruneopts = "UT"
   revision = "614d223910a179a466c1767a985424175c39b465"
   version = "v0.9.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:566d30804f63ab7a4f3fabe636fe5b98a4009baaac5906c00d329739dbd6e23c"
+  name = "github.com/smacker/opentracing-go-redis"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "6225d32494913cf68f17b2609891c791a2617263"
 
 [[projects]]
   digest = "1:cd1ad050707f64cda6b630924df144280096bab2b63ab0ba9cff135a66165c09"
@@ -168,6 +209,17 @@
   version = "v1.15.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:9d5b5d543996dd584da1db1e0de1926f3e4c3a8dba0fa2f8db70f3ebee2342e0"
+  name = "golang.org/x/crypto"
+  packages = [
+    "bcrypt",
+    "blowfish",
+  ]
+  pruneopts = "UT"
+  revision = "06a226fb4e3765ef3f48aa2852b401bc7b98e981"
+
+[[projects]]
   digest = "1:0e49ce3bb641491517ba5035619be50aa07619814665c9761d0decb48f35ea94"
   name = "gopkg.in/go-playground/validator.v9"
   packages = ["."]
@@ -179,15 +231,22 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/dgrijalva/jwt-go",
+    "github.com/dhyaniarun1993/foody-common/datastore/redis",
     "github.com/dhyaniarun1993/foody-common/datastore/sql",
     "github.com/dhyaniarun1993/foody-common/errors",
     "github.com/dhyaniarun1993/foody-common/logger",
     "github.com/dhyaniarun1993/foody-common/tracer",
-    "github.com/dhyaniarun1993/foody-customer-service/repositories",
-    "github.com/dhyaniarun1993/foody-customer-service/repositories/mysql",
-    "github.com/dhyaniarun1993/foody-customer-service/services",
+    "github.com/dhyaniarun1993/foody-common/validator",
+    "github.com/dhyaniarun1993/foody-customer-service/client",
+    "github.com/dhyaniarun1993/foody-customer-service/client/http",
+    "github.com/dhyaniarun1993/foody-customer-service/schemas/dto",
+    "github.com/go-redis/redis",
     "github.com/gorilla/mux",
     "github.com/kelseyhightower/envconfig",
+    "github.com/smacker/opentracing-go-redis",
+    "golang.org/x/crypto/bcrypt",
+    "gopkg.in/go-playground/validator.v9",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
