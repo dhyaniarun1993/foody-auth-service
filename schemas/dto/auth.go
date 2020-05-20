@@ -38,7 +38,7 @@ func (dto SendOtpRequest) Validate(validate *validator.Validate) errors.AppError
 // TokenRequestBody provides the schema definition for token api request body
 type TokenRequestBody struct {
 	PhoneNumber  string `json:"phone_number" validate:"indiaPhoneNumber"`
-	Otp          int    `json:"otp"`
+	Otp          string `json:"otp"`
 	RefreshToken string `json:"refresh_token"`
 	GrantType    string `json:"grant_type" validate:"required"`
 }

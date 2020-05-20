@@ -28,7 +28,7 @@ func NewGrantService(tokenService TokenService, otpService OtpService,
 	return &grantService{tokenService, otpService, userRepository}
 }
 
-func (service *grantService) HandleOTPGrant(ctx context.Context, phoneNumber string, otp int,
+func (service *grantService) HandleOTPGrant(ctx context.Context, phoneNumber string, otp string,
 	client models.Client) (models.AccessToken, models.RefreshToken, errors.AppError) {
 
 	isValidOtp, otpValidateErr := service.otpService.Validate(ctx, phoneNumber, otp, client)

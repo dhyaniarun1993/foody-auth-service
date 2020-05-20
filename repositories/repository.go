@@ -26,8 +26,8 @@ type RefreshTokenRepository interface {
 
 // OtpRepository provides interface for Otp repository
 type OtpRepository interface {
-	Set(ctx context.Context, key string, value int) errors.AppError
-	Get(ctx context.Context, key string) (int, errors.AppError)
+	Set(ctx context.Context, key string, value string) errors.AppError
+	Get(ctx context.Context, key string) (string, errors.AppError)
 	Delete(ctx context.Context, key string) errors.AppError
 }
 

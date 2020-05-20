@@ -20,7 +20,7 @@ func NewOtpService(otpRepository repositories.OtpRepository) OtpService {
 }
 
 func (service *otpService) Validate(ctx context.Context, phoneNumber string,
-	otp int, client models.Client) (bool, errors.AppError) {
+	otp string, client models.Client) (bool, errors.AppError) {
 
 	key := "otpLogin:" + client.ID + ":" + phoneNumber
 	otpFromRepository, getOtpErr := service.otpRepository.Get(ctx, key)
@@ -49,7 +49,7 @@ func (service *otpService) Generate(ctx context.Context, phoneNumber string,
 	rand.Seed(time.Now().Unix())
 	otp := rand.Intn(maxOtp-minOtp) + minOtp
 
-	setOtpError := service.otpRepository.Set(ctx, key, otp)
+	setOtpError := service.otpRepository.Set(ctx, key, string(otp))
 	if setOtpError != nil {
 		return setOtpError
 	}

@@ -29,7 +29,7 @@ type TokenService interface {
 
 // GrantService provides interface for grant service
 type GrantService interface {
-	HandleOTPGrant(ctx context.Context, phoneNumber string, otp int,
+	HandleOTPGrant(ctx context.Context, phoneNumber string, otp string,
 		client models.Client) (models.AccessToken, models.RefreshToken, errors.AppError)
 	HandleRefreshTokenGrant(ctx context.Context, tokenString string,
 		client models.Client) (models.AccessToken, models.RefreshToken, errors.AppError)
@@ -37,6 +37,6 @@ type GrantService interface {
 
 // OtpService provides interface for otp srevice
 type OtpService interface {
-	Validate(ctx context.Context, phoneNumber string, otp int, client models.Client) (bool, errors.AppError)
+	Validate(ctx context.Context, phoneNumber string, otp string, client models.Client) (bool, errors.AppError)
 	Generate(ctx context.Context, phoneNumber string, client models.Client) errors.AppError
 }

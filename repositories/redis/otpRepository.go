@@ -3,7 +3,6 @@ package redis
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/go-redis/redis"
@@ -22,7 +21,7 @@ func NewOtpRepository(redisClient *redis.Client) repositories.OtpRepository {
 	return &otpRepository{redisClient}
 }
 
-func (redis *otpRepository) Set(ctx context.Context, key string, value int) errors.AppError {
+func (redis *otpRepository) Set(ctx context.Context, key string, value string) errors.AppError {
 
 	ttl := 120 * time.Second
 	redisWithContext := otredis.WrapRedisClient(ctx, redis.Client)
@@ -34,17 +33,12 @@ func (redis *otpRepository) Set(ctx context.Context, key string, value int) erro
 	return nil
 }
 
-func (redis *otpRepository) Get(ctx context.Context, key string) (int, errors.AppError) {
+func (redis *otpRepository) Get(ctx context.Context, key string) (string, errors.AppError) {
 	redisWithContext := otredis.WrapRedisClient(ctx, redis.Client)
 
-	otpString, err := redisWithContext.Get(key).Result()
+	otp, err := redisWithContext.Get(key).Result()
 	if err != nil {
-		return 0, errors.NewAppError("Something went wrong", http.StatusInternalServerError, err)
-	}
-
-	otp, conversionErr := strconv.Atoi(otpString)
-	if conversionErr != nil {
-		return 0, errors.NewAppError("Something went wrong", http.StatusInternalServerError, err)
+		return "", errors.NewAppError("Something went wrong", http.StatusInternalServerError, err)
 	}
 
 	return otp, nil
