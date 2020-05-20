@@ -87,7 +87,7 @@ func (service *authService) GetToken(ctx context.Context, request dto.TokenReque
 	}
 
 	if !client.IsValidGrantType(request.Body.GrantType) {
-		return dto.TokenResponse{}, errors.NewAppError("Client not authorized for the grant type", http.StatusForbidden, nil)
+		return dto.TokenResponse{}, errors.NewAppError("Invalid grant type for client", http.StatusBadRequest, nil)
 	}
 
 	switch request.Body.GrantType {
