@@ -11,7 +11,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:beac109f286002969f318675679aa921c20948998dda8f9b633ce085d2c566f1"
+  digest = "1:d110692399d510902dc8bac79e8724e28f6bd53a20fbed0e925725284413f56f"
   name = "github.com/dhyaniarun1993/foody-common"
   packages = [
     "authentication",
@@ -23,7 +23,7 @@
     "validator",
   ]
   pruneopts = "UT"
-  revision = "c8d9aa8733e3ff5e982751ace364333d05ae7b35"
+  revision = "ca8c90ff1bd65906ee815a2aed9a7dae52b2722b"
 
 [[projects]]
   branch = "master"

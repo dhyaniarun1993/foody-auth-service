@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/dhyaniarun1993/foody-auth-service/constants"
 	"github.com/dhyaniarun1993/foody-common/errors"
 	"gopkg.in/go-playground/validator.v9"
 )
@@ -38,15 +39,15 @@ func (dto SendOtpRequest) Validate(validate *validator.Validate) errors.AppError
 // TokenRequestBody provides the schema definition for token api request body
 type TokenRequestBody struct {
 	PhoneNumber  string `json:"phone_number" validate:"indiaPhoneNumber"`
-	Otp          string `json:"otp"`
+	Otp          string `json:"otp" validate:"otp"`
 	RefreshToken string `json:"refresh_token"`
 	GrantType    string `json:"grant_type" validate:"required"`
 }
 
 // TokenRequest provides the schema definition for token api request
 type TokenRequest struct {
-	ClientID     string           `json:"-"`
-	ClientSecret string           `json:"-"`
+	ClientID     string           `json:"-" validate:"required"`
+	ClientSecret string           `json:"-" validate:"required"`
 	Body         TokenRequestBody `json:"body" validate:"required,dive"`
 }
 
@@ -60,6 +61,21 @@ func (dto TokenRequest) Validate(validate *validator.Validate) errors.AppError {
 			break
 		}
 		return errors.NewAppError(errMsg, http.StatusBadRequest, err)
+	}
+
+	if dto.Body.GrantType == constants.GrantTypeOtp {
+		if dto.Body.PhoneNumber == "" {
+			return errors.NewAppError("Invalid value for field phone_numbner", http.StatusBadRequest, nil)
+		}
+		if dto.Body.Otp == "" {
+			return errors.NewAppError("Invalid value for filed otp", http.StatusBadRequest, nil)
+		}
+	} else if dto.Body.GrantType == constants.GrantTypeRefreshToken {
+		if dto.Body.RefreshToken == "" {
+			return errors.NewAppError("Invalid value for field refresh_token", http.StatusBadRequest, nil)
+		}
+	} else {
+		return errors.NewAppError("Invalid value for field grant_type", http.StatusBadRequest, nil)
 	}
 
 	return nil
