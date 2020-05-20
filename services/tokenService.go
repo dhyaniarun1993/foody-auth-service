@@ -26,7 +26,6 @@ type AccessTokenClaims struct {
 	UserID   string `json:"user_id"`
 	UserRole string `json:"user_role"`
 	ClientID string `json:"client_id"`
-	KeyID    int64  `json:"key_id"`
 	jwt.StandardClaims
 }
 
@@ -52,7 +51,7 @@ func (service *tokenService) GenerateAccessToken(client models.Client, user mode
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString(service.accessTokenSecret)
+	tokenString, err := token.SignedString([]byte(service.accessTokenSecret))
 	accessToken := models.AccessToken{
 		Token:      tokenString,
 		ClientID:   client.ID,

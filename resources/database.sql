@@ -38,7 +38,7 @@ CREATE TABLE `refresh_token` (
   `token` varchar(256) NOT NULL,
   `expiry_date` datetime NOT NULL,
   `client_id` varchar(80) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `user_id` varchar(80) NOT NULL,
   `user_role` enum('customer') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

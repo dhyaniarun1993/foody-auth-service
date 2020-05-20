@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"math/rand"
+	"strconv"
 	"time"
 
 	"github.com/dhyaniarun1993/foody-auth-service/repositories"
@@ -53,7 +54,7 @@ func (service *otpService) Generate(ctx context.Context, phoneNumber string,
 	rand.Seed(time.Now().Unix())
 	otp := rand.Intn(maxOtp-minOtp) + minOtp
 
-	setOtpError := service.otpRepository.Set(ctx, key, string(otp))
+	setOtpError := service.otpRepository.Set(ctx, key, strconv.Itoa(otp))
 	if setOtpError != nil {
 		return setOtpError
 	}

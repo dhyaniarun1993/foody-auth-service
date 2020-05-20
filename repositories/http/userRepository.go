@@ -3,6 +3,7 @@ package http
 import (
 	"context"
 	"net/http"
+	"strconv"
 
 	"github.com/dhyaniarun1993/foody-auth-service/constants"
 	"github.com/dhyaniarun1993/foody-auth-service/repositories"
@@ -32,8 +33,9 @@ func (repository *userRepository) getCustomerByPhoneNumber(ctx context.Context,
 		return models.User{}, err
 	}
 
+	userID := strconv.Itoa(int(customer.ID))
 	user := models.User{
-		ID:     string(customer.ID),
+		ID:     userID,
 		Status: customer.Status,
 	}
 	return user, nil
