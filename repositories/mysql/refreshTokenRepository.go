@@ -41,7 +41,7 @@ func (db *refreshTokenRepository) Create(ctx context.Context, refreshToken model
 func (db *refreshTokenRepository) GetByClientIDAndUserID(ctx context.Context,
 	clientID string, userID string) (models.RefreshToken, errors.AppError) {
 
-	var refreshToken models.RefreshToken
+	refreshToken := models.RefreshToken{}
 	timedCtx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 
@@ -55,7 +55,7 @@ func (db *refreshTokenRepository) GetByClientIDAndUserID(ctx context.Context,
 }
 
 func (db *refreshTokenRepository) GetByToken(ctx context.Context, token string) (models.RefreshToken, errors.AppError) {
-	var refreshToken models.RefreshToken
+	refreshToken := models.RefreshToken{}
 	timedCtx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 
