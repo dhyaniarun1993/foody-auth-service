@@ -48,6 +48,8 @@ func (service *otpService) Validate(ctx context.Context, phoneNumber string,
 func (service *otpService) Generate(ctx context.Context, phoneNumber string,
 	client models.Client) errors.AppError {
 
+	// Todo: Instead tp using phone number, use uuid which will be sent back to the client
+	// Verification will also be done using the uuid
 	key := "otpLogin:" + client.ID + ":" + phoneNumber
 	minOtp := 100000
 	maxOtp := 999999

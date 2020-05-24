@@ -44,6 +44,7 @@ func main() {
 	tokenService := services.NewTokenservice(config.AccessTokenSecret, config.AccessTokenIssuer, refreshTokenRepository)
 	grantService := services.NewGrantService(tokenService, otpService, userRepository)
 	authService := services.NewAuthService(grantService, otpService, clientRepository, userRepository)
+	userService := services.NewUserService(clientRepository, userRepository, otpService)
 
 	router := mux.NewRouter()
 	ignoredURLs := []string{"/health"}
@@ -52,9 +53,11 @@ func main() {
 	router.Use(tracer.TraceRequest(t, ignoredURLs, ignoredMethods))
 	healthController := controllers.NewHealthController(healthService, logger)
 	authController := controllers.NewAuthController(authService, validate, logger)
+	userController := controllers.NewUserController(userService, validate, logger)
 
 	healthController.LoadRoutes(router)
 	authController.LoadRoutes(router)
+	userController.LoadRoutes(router)
 	serverAddress := ":" + fmt.Sprint(config.Port)
 	srv := &http.Server{
 		Handler:      router,

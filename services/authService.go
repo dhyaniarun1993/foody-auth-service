@@ -32,12 +32,8 @@ func (service *authService) validateAndGetClient(ctx context.Context, clientID s
 		return models.Client{}, getClientErr
 	}
 
-	if reflect.DeepEqual(client, models.Client{}) {
-		return models.Client{}, errors.NewAppError("Invalid client", http.StatusUnauthorized, nil)
-	}
-
 	if !client.IsActive() {
-		return models.Client{}, errors.NewAppError("Inactive client", http.StatusUnauthorized, nil)
+		return models.Client{}, errors.NewAppError("Invalid client", http.StatusUnauthorized, nil)
 	}
 
 	// Todo: Store hash secret in the DB

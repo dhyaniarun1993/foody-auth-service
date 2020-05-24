@@ -51,3 +51,16 @@ func (repository *userRepository) GetByPhoneNumber(ctx context.Context, phoneNum
 	}
 	return models.User{}, errors.NewAppError("Invalid user type", http.StatusInternalServerError, nil)
 }
+
+func (repository *userRepository) CreateCustomer(ctx context.Context, phoneNumber, email,
+	firstName, lastName string) (int64, errors.AppError) {
+
+	body := customerDto.CreateCustomerRequestBody{
+		PhoneNumber: phoneNumber,
+		Email:       email,
+		FirstName:   firstName,
+		LastName:    lastName,
+	}
+	response, err := repository.customerClient.InternalCreateCustomer(ctx, body)
+	return response.ID, err
+}

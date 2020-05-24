@@ -40,3 +40,8 @@ type OtpService interface {
 	Validate(ctx context.Context, phoneNumber string, otp string, client models.Client) (bool, errors.AppError)
 	Generate(ctx context.Context, phoneNumber string, client models.Client) errors.AppError
 }
+
+// UserService provides interface for user service
+type UserService interface {
+	Register(ctx context.Context, request dto.RegisterRequest) (dto.RegisterResponse, errors.AppError)
+}

@@ -34,4 +34,5 @@ type OtpRepository interface {
 // UserRepository provides interface for user repository
 type UserRepository interface {
 	GetByPhoneNumber(ctx context.Context, phoneNumber string, userType string) (models.User, errors.AppError)
+	CreateCustomer(ctx context.Context, phoneNumber, email, firstName, lastName string) (int64, errors.AppError)
 }

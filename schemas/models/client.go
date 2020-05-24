@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+	"reflect"
 	"strings"
 	"time"
 
@@ -24,6 +26,11 @@ type Client struct {
 
 // IsActive check if client status is active
 func (client *Client) IsActive() bool {
+	if reflect.DeepEqual(client, Client{}) {
+		fmt.Println(client)
+		return false
+	}
+
 	if client.Status == constants.ClientStatusActive {
 		return true
 	}
